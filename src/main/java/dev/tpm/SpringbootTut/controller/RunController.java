@@ -29,10 +29,10 @@ public class RunController {
     @GetMapping("/{id}")
     Run findByID(@PathVariable Integer id){
         Optional<Run> run = Optional.ofNullable(runRepository.findById(id));
-        if(run.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-        return run.get();
+        if (run.isPresent()){
+            return run.get();
+        };
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
 
