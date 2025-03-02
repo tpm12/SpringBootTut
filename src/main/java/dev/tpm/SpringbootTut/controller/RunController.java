@@ -1,12 +1,15 @@
 package dev.tpm.SpringbootTut.controller;
 import dev.tpm.SpringbootTut.models.Run;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import dev.tpm.SpringbootTut.repo.RunRepository;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/runs")
@@ -25,7 +28,11 @@ public class RunController {
 
     @GetMapping("/{id}")
     Run findByID(@PathVariable Integer id){
-        return runRepository.findById(id);
+        Optional<Run> run = Optional.ofNullable(runRepository.findById(id));
+        if(run.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return run.get();
     }
 
 
