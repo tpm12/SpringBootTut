@@ -32,9 +32,15 @@ public class RunController {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     void create(@RequestBody Run run){
         runRepository.create(run);
+    }
+
+    @PutMapping
+    void update(@RequestBody Run run, @PathVariable int id){
+        runRepository.update(run, id);
     }
 
 

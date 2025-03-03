@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class RunRepository {
@@ -25,6 +26,17 @@ public class RunRepository {
 
     public void create(Run run){
         runs.add(run);
+    }
+
+    public void update(Run run, Integer id){
+        Optional<Run> existing = Optional.ofNullable(findById(id));
+        if (existing.isPresent()){
+            runs.set(runs.indexOf(existing.get()), run);
+        }
+    }
+
+    public void delete(Integer id){
+        runs.removeIf(run -> run.getId() == id);
     }
 
     @PostConstruct
