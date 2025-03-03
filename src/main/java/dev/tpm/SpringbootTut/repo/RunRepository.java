@@ -23,6 +23,10 @@ public class RunRepository {
         return runs.stream().filter(run -> run.getId() == id).findFirst().orElse(null);
     }
 
+    public void create(Run run){
+        runs.add(run);
+    }
+
     @PostConstruct
     private void init(){
         runs.add(new Run(1,

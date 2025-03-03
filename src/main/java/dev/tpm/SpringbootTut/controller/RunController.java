@@ -1,10 +1,7 @@
 package dev.tpm.SpringbootTut.controller;
 import dev.tpm.SpringbootTut.models.Run;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import dev.tpm.SpringbootTut.repo.RunRepository;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -27,7 +24,7 @@ public class RunController {
     }
 
     @GetMapping("/{id}")
-    Run findByID(@PathVariable Integer id){
+    Run findByID(@PathVariable int id){
         Optional<Run> run = Optional.ofNullable(runRepository.findById(id));
         if (run.isPresent()){
             return run.get();
@@ -35,6 +32,9 @@ public class RunController {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
+    void create(@RequestBody Run run){
+        runRepository.create(run);
+    }
 
 
 
