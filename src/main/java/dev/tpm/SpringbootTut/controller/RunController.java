@@ -43,6 +43,9 @@ public class RunController {
         runRepository.update(run, id);
     }
 
-
+    @DeleteMapping
+    void delete(@PathVariable int id){
+        runRepository.delete(id);
+    }
 
 }
